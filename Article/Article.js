@@ -85,6 +85,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'Another article',
+    date: 'Mar 16th, 2020',
+    firstParagraph: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',
+    secondParagraph: 'BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB',
+    thirdParagraph: 'CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC'
   }
 ];
 
@@ -112,3 +119,48 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+
+const createArticle = (articleData) => {
+
+  const article = document.createElement('div')
+  const title = document.createElement('h2')
+  const date = document.createElement('p')
+  
+  const p1 = document.createElement('p')
+  const p2 = document.createElement('p')
+  const p3 = document.createElement('p')
+  const expand = document.createElement('span')
+
+  article.append(title, date, p1, p2, p3, expand)
+
+  title.textContent = articleData.title
+  date.textContent = articleData.date
+  expand.textContent = '\u2b07'
+
+  p1.textContent = articleData.firstParagraph
+  p2.textContent = articleData.secondParagraph
+  p3.textContent = articleData.thirdParagraph
+
+  article.classList.add('article')
+  date.classList.add('date')
+  expand.classList.add('expandButton')
+
+  expand.addEventListener('click', () => {
+    article.classList.toggle('article-open')
+    expand.classList.toggle('close-btn')
+
+    if(expand.classList.contains('close-btn')) {
+      expand.textContent = '\u2b06'
+    } else {
+      expand.textContent = '\u2b07'
+    }
+  })
+
+  return article
+}
+
+const articles = document.querySelector('.articles')
+
+data.forEach(article => {
+  articles.appendChild(createArticle(article))
+})
